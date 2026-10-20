@@ -1,0 +1,66 @@
+:root {
+
+    --color_paagina_fondo: #f3f1fc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+    background-color: var(--color_paagina_fondo);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #5a5863;
+    gap: 20px;
+}
+
+.image {
+  display: flex;              
+  justify-content: center;    
+  align-items: center;        
+  gap: 40px;                 
+  padding: 30px 20px;         
+  flex-wrap: wrap;  
+  text-align: center; 
+  color: #5a5863;    
+}
+
+.layouts__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    
+}
+
+.card__imagen {
+    width: 80%;
+    height: 300px;
+    display: block;
+    margin-top: 50px;
+    grid-template-columns: auto;
+    text-align: auto;
+    
+}
+
+.centralTitulo{
+
+    text-align: center;
+    margin-top: 20px;
+    font-size: 30px;
+    
+}
+

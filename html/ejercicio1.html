@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+    <link rel="stylesheet" href="../css/ejercicio1.css">
+    <script src="../js/ejercici1.js"></script>
+</head>
+
+<body>
+
+    <script>
+
+        function crearElemento(etiqueta, clase) {
+            let elemento = document.createElement(etiqueta);
+            if (clase) {
+                elemento.className = clase;
+            }
+            return elemento;
+        }
+
+        function crearNodoConTexto(etiqueta, texto, clase) {
+            let elemento = crearElemento(etiqueta, clase);
+            elemento.textContent = texto;
+            return elemento;
+        }
+
+        function adicionalElementoAContenedor(hijo, contenedor) {
+            contenedor.appendChild(hijo);
+        }
+
+        function adicionalElementoABody(elemento) {
+            document.body.appendChild(elemento);
+        }
+
+
+        let layouts = [
+            
+            { nombre: "Real Estate", imagen: "../recursos/imagen1.webp" },
+            { nombre: "Library", imagen: "../recursos/imagen2.avif" },
+            { nombre: "Transportation", imagen: "../recursos/imagen3.webp" },
+            { nombre: "Gas & Oil", imagen: "../recursos/imagen4.jpg" },
+            { nombre: "Marketing Agency", imagen: "../recursos/imagen5.webp" },
+            { nombre: "Pizza", imagen: "../recursos/imagen6.webp" },
+            { nombre: "Flooring", imagen: "../recursos/imagen7.webp" },
+            { nombre: "Steel Processing", imagen: "../recursos/imagen8.jpg" },
+            { nombre: "Coming Soon", imagen: "../recursos/imagen9.webp" },
+        ]; 
+
+
+        let seccion = crearElemento("section", "layouts");
+        let titulo = crearNodoConTexto("h2", "Beautiful, Hand-crafted Layouts", "layouts__titulo");
+        titulo.classList.add('centralTitulo')
+        let grid = crearElemento("div", "layouts__grid");
+        
+
+        adicionalElementoAContenedor(titulo, seccion);
+        adicionalElementoAContenedor(grid, seccion);
+
+      
+        for (let i = 0; i < layouts.length; i++) {
+            let tarjeta = crearElemento("div", "card");
+
+            let img = crearElemento("img", "card__imagen");
+            img.src = layouts[i].imagen;
+            img.alt = layouts[i].nombre;
+
+            let nombre = crearNodoConTexto("p", layouts[i].nombre, "card__nombre");
+
+            adicionalElementoAContenedor(img, tarjeta);
+            adicionalElementoAContenedor(nombre, tarjeta);
+            adicionalElementoAContenedor(tarjeta, grid);
+        }
+
+
+        let proximamente = crearElemento("div", "card card--proximamente");
+
+        let icono = crearElemento("div", "card__icono");
+        for (let i = 0; i < 9; i++) {
+            adicionalElementoAContenedor(crearElemento("span", "card__punto"), icono);
+        }
+
+        let textoProx = crearNodoConTexto("p", "Coming Soon", "card__nombre");
+
+        adicionalElementoAContenedor(icono, proximamente);
+        adicionalElementoAContenedor(textoProx, proximamente);
+        adicionalElementoAContenedor(proximamente, grid);
+
+
+        adicionalElementoABody(seccion);
+    </script>
+
+</body>
+
+</html>

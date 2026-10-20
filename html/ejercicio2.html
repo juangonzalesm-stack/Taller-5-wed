@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+    <link rel="stylesheet" href="../css/ejercicio2.css">
+</head>
+
+<body>
+
+    <script>
+        function crearElemento(etiqueta, clase) {
+            let elemento = document.createElement(etiqueta);
+            if (clase) {
+                elemento.className = clase;
+            }
+            return elemento;
+        }
+
+        function crearNodoConTexto(etiqueta, texto, clase) {
+            let elemento = crearElemento(etiqueta, clase);
+            elemento.textContent = texto;
+            return elemento;
+        }
+
+        function adicionalElementoAContenedor(hijo, contenedor) {
+            contenedor.appendChild(hijo);
+        }
+
+        function adicionalElementoABody(elemento) {
+            document.body.appendChild(elemento);
+        }
+
+        function crearParrafoMixto(partes, clase) {
+            let parrafo = crearElemento("p", clase);
+
+            for (let i = 0; i < partes.length; i++) {
+                if (typeof partes[i] === "string") {
+                    adicionalElementoAContenedor(document.createTextNode(partes[i]), parrafo);
+                } else {
+                    let nodo = crearNodoConTexto(partes[i].etiqueta, partes[i].texto);
+                    if (partes[i].href) {
+                        nodo.href = partes[i].href;
+                    }
+                    adicionalElementoAContenedor(nodo, parrafo);
+                }
+            }
+            return parrafo;
+        }
+
+        let servicios = [
+            {
+                imagen: "../recursos/anality.png",
+                titulo: "Market Analysis",
+                texto: [
+                    "Praesent sed pharetra lorem, blandit convallis mi. Aenean ornare elit ac metus lacinia, sed iaculis nibh semper. Pellentesque est urna."
+                ]
+            },
+            {
+                imagen: "../recursos/comentario.png",
+                titulo: "Fast Support",
+                texto: [
+                    "Credit goes to ",
+                    { etiqueta: "a", texto: "Pexels", href: "https://www.pexels.com" },
+                    " website for all images used in this template. Cras condimentum mi et sapien dignissim luctus."
+                ]
+            },
+            {
+                imagen: "../recursos/huella.png",
+                titulo: "Top Security",
+                texto: [
+                    "You have ",
+                    { etiqueta: "strong", texto: "no" },
+                    " authority to post this template as a ZIP file on your template collection websites. You can ",
+                    { etiqueta: "strong", texto: "use" },
+                    " this template for your commercial websites."
+                ],
+                boton: "Learn More"
+            },
+            {
+                imagen: "../recursos/social.png",
+                titulo: "Social Work",
+                texto: [
+                    "You can change ",
+                    { etiqueta: "a", texto: "Font Awesome icons", href: "https://fontawesome.com" },
+                    " by either ",
+                    { etiqueta: "em", texto: "fas or far" },
+                    " in the HTML codes. For Examples: ",
+                    { etiqueta: "em", texto: '<i class="fas fa-users"></i><i class="far fa-chart-bar"></i>' }
+                ],
+                boton: "Details"
+            }
+        ];
+
+        let seccion = crearElemento("section", "que-hacemos");
+        let titulo = crearNodoConTexto("h2", "What We Do", "que-hacemos__titulo");
+        let introduccion = crearParrafoMixto([
+            "This is Infinite Loop, free Bootstrap 4.0 HTML template with a parallax effect. This layout is what you can modify and use for your websites. Please spread a word to your friends about our website. Thank you for supporting us. If you have any question, you can contact us or chat with us on our ",
+            { etiqueta: "a", texto: "Tooplate Facebook page", href: "https://www.facebook.com/tooplate" },
+            "."
+        ], "que-hacemos__intro");
+        let grid = crearElemento("div", "que-hacemos__grid");
+
+        adicionalElementoAContenedor(titulo, seccion);
+        adicionalElementoAContenedor(introduccion, seccion);
+        adicionalElementoAContenedor(grid, seccion);
+
+        for (let i = 0; i < servicios.length; i++) {
+            let servicio = crearElemento("div", "servicio");
+            let icono = crearElemento("img", "servicio__icono");
+            icono.alt = "Icono de " + servicios[i].titulo;
+            if (servicios[i].imagen) {
+                icono.src = servicios[i].imagen;
+            }
+            let contenido = crearElemento("div", "servicio__contenido");
+            let tituloServicio = crearNodoConTexto("h3", servicios[i].titulo, "servicio__titulo");
+            let texto = crearParrafoMixto(servicios[i].texto, "servicio__texto");
+
+            adicionalElementoAContenedor(tituloServicio, contenido);
+            adicionalElementoAContenedor(texto, contenido);
+
+            if (servicios[i].boton) {
+                let boton = crearNodoConTexto("button", servicios[i].boton, "servicio__boton");
+                boton.type = "button";
+                adicionalElementoAContenedor(boton, contenido);
+            }
+
+            adicionalElementoAContenedor(icono, servicio);
+            adicionalElementoAContenedor(contenido, servicio);
+            adicionalElementoAContenedor(servicio, grid);
+        }
+
+        adicionalElementoABody(seccion);
+    </script>
+
+</body>
+
+</html>
